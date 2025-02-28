@@ -1,0 +1,54 @@
+( 
+DNO varchar(20) primary key,
+DNAME varchar(20),
+MGRSTARTDATE DATE
+);
+
+create table employee
+(
+SSN varchar(20) primary key,
+FNAME varchar(20),
+LNAME varchar(20),
+address varchar(20),
+sex char(1),
+salary integer,
+SuperSSN varchar(20),
+DNO varchar(20),
+foreign key(SuperSSN) references employee(SSN),
+foreign key(DNO) references department(DNO)
+);
+
+create table DLocation
+(
+DLoc varchar(20),
+foreign key(DNO) references department(DNO),
+primary key(DNO,DLOC)
+);
+
+create table project
+(
+PNO integer,
+PNAME varchar(20),
+PLOCATION varchar(20),
+DNO varchar(20),
+foreign key (DNO) references department(DNO),
+primary key(PNO)
+);
+
+create table works_on
+(
+hours integer(2),
+SSN varchar(20),
+PNO integer,
+foreign key(SSN) references employee(SSN),
+foreign key(PNO) references project(PNO),
+primary key(SSN,PNO)
+);
+
+
+ALTER TABLE DEPARTMENT ADD MGRSSN REFERENCES EMPLOYEE(SSN);
+
+ALTER TABLE DEPARTMENT ADD MGRSSN VARCHAR(20);
+
+ALTER TABLE DEPARTMENT ADD CONSTRAINT FK FOREIGN KEY(MGRSSN)
+REFERENCES EMPLOYEE(SSN);
